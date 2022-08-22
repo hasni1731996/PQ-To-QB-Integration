@@ -1,0 +1,250 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} App Setting {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/css/setting.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card app-setting">
+                            <div class="card-header">
+                                <h5>Procore App Credentials</h5>
+                            </div>
+                            <div class="card-block">
+                                <div class="card-block col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+                                     style="float: left;">
+                                    <div class="row mb-4">
+                                        <label for="ppromode"
+                                               class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-info">Production
+                                            Mode</label>
+                                        <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 switch">
+                                            <input type="checkbox" checked id="ppromode-switch">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="ppclientid"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Pro
+                                            Client ID</label>
+                                        <input type="text" id="ppclientid" name="prod_procore_app_id"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="ppclientsecret"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Client
+                                            Secret</label>
+                                        <input type="password" id="ppclientsecret" name="prod_procore_app_secret"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="ppsandboxurl"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Redirect
+                                            URL</label>
+                                        <input type="text" id="ppsandboxurl" name="prod_procore_redirect_url"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                </div>
+                                <div class="card-block col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+                                     style="float: left;">
+                                    <div class="row mb-4">
+                                        <label for="psndmode"
+                                               class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-info">Sandbox
+                                            Mode</label>
+                                        <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 switch">
+                                            <input type="checkbox" checked id="psndmode-switch">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="psclientid"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Snd
+                                            Client ID</label>
+                                        <input type="text" id="psclientid" name="sandbox_procore_app_id"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="psclientsecret"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Client
+                                            Secret</label>
+                                        <input type="password" id="psclientsecret" name="sandbox_procore_app_secret"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="pssandboxurl"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Redirect
+                                            URL</label>
+                                        <input type="text" id="pssandboxurl" name="sandbox_procore_redirect_url"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-header">
+                                <h5>QuickBook App Credentials</h5>
+                            </div>
+                            <div class="card-block">
+                                <div class="card-block col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+                                     style="float: left;">
+                                    <div class="row mb-4">
+                                        <label for="qpromode"
+                                               class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-info">Production
+                                            Mode</label>
+                                        <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 switch">
+                                            <input type="checkbox" checked id="qpromode-switch">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="qpclientid"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Pro
+                                            Client ID</label>
+                                        <input type="text" id="qpclientid" name="prod_qbo_app_id"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="qpclientsecret"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Client
+                                            Secret</label>
+                                        <input type="password" id="qpclientsecret" name="prod_qbo_app_secret"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="qpsandboxurl"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Redirect
+                                            URL</label>
+                                        <input type="text" id="qpsandboxurl" name="prod_qbo_redirect_url"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                </div>
+                                <div class="card-block col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+                                     style="float: left;">
+                                    <div class="row mb-4">
+                                        <label for="qsndmode"
+                                               class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-info">Sandbox
+                                            Mode</label>
+                                        <label class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 switch">
+                                            <input type="checkbox" checked id="qsndmode-switch">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="qsclientid"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Snd
+                                            Client ID</label>
+                                        <input type="text" id="qsclientid" name="sandbox_qbo_app_id"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="qsclientsecret"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Client
+                                            Secret</label>
+                                        <input type="password" id="qsclientsecret" name="sandbox_qbo_app_secret"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label for="qssandboxurl"
+                                               class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Redirect
+                                            URL</label>
+                                        <input type="text" id="qssandboxurl" name="sandbox_qbo_redirect_url"
+                                               class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="save-btn">
+                                <button class="btn btn-primary float-right" id="save-btn" type="button"
+                                        onclick="saveCredentials()">
+                                    Save Credentials
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script>
+        syncUserCredentials();
+        let is_credentials_exists;
+
+        function syncUserCredentials() {
+            $.get("/user/save-credentials/", function (data) {
+                Object.keys(data).length !== 0 ? is_credentials_exists = data : null
+                document.getElementById('ppclientid').value = data.prod_procore_app_id;
+                document.getElementById('ppclientsecret').value = data.prod_procore_app_secret;
+                document.getElementById('ppsandboxurl').value = data.prod_procore_redirect_url;
+
+                document.getElementById('psclientid').value = data.sandbox_procore_app_id;
+                document.getElementById('psclientsecret').value = data.sandbox_procore_app_secret;
+                document.getElementById('pssandboxurl').value = data.sandbox_procore_redirect_url;
+
+                document.getElementById('qpclientid').value = data.prod_qbo_app_id;
+                document.getElementById('qpclientsecret').value = data.prod_qbo_app_secret;
+                document.getElementById('qpsandboxurl').value = data.prod_qbo_redirect_url;
+
+                document.getElementById('qsclientid').value = data.sandbox_qbo_app_id;
+                document.getElementById('qsclientsecret').value = data.sandbox_qbo_app_secret;
+                document.getElementById('qssandboxurl').value = data.sandbox_qbo_redirect_url;
+
+                if (data.is_prod_active == false) {
+                    document.getElementById("ppromode-switch").checked = false;
+                    document.getElementById("qpromode-switch").checked = false;
+                }
+
+                if (data.is_sandbox_active == false) {
+                    document.getElementById("psndmode-switch").checked = false;
+                    document.getElementById("qsndmode-switch").checked = false;
+                }
+            })
+        }
+
+        function saveCredentials() {
+            let data = {
+                'id': is_credentials_exists ? is_credentials_exists.id : undefined,
+                'prod_procore_app_id': document.getElementById('ppclientid').value ? document.getElementById('ppclientid').value : undefined,
+                'prod_procore_app_secret': document.getElementById('ppclientsecret').value ? document.getElementById('ppclientsecret').value : undefined,
+                'prod_procore_redirect_url': document.getElementById('ppsandboxurl').value ? document.getElementById('ppsandboxurl').value : undefined,
+                'sandbox_procore_app_id': document.getElementById('psclientid').value ? document.getElementById('psclientid').value : undefined,
+                'sandbox_procore_app_secret': document.getElementById('psclientsecret').value ? document.getElementById('psclientsecret').value : undefined,
+                'sandbox_procore_redirect_url': document.getElementById('pssandboxurl').value ? document.getElementById('pssandboxurl').value : undefined,
+                'prod_qbo_app_id': document.getElementById('qpclientid').value ? document.getElementById('qpclientid').value : undefined,
+                'prod_qbo_app_secret': document.getElementById('qpclientsecret').value ? document.getElementById('qpclientsecret').value : undefined,
+                'prod_qbo_redirect_url': document.getElementById('qpsandboxurl').value ? document.getElementById('qpsandboxurl').value : undefined,
+                'sandbox_qbo_app_id': document.getElementById('qsclientid').value ? document.getElementById('qsclientid').value : undefined,
+                'sandbox_qbo_app_secret': document.getElementById('qsclientsecret').value ? document.getElementById('qsclientsecret').value : undefined,
+                'sandbox_qbo_redirect_url': document.getElementById('qssandboxurl').value ? document.getElementById('qssandboxurl').value : undefined,
+                'is_prod_active': (document.getElementById("ppromode-switch").checked && document.getElementById("qpromode-switch").checked) ? true : undefined,
+                'user': is_credentials_exists ? is_credentials_exists.user : undefined,
+                'is_sandbox_active': (document.getElementById("psndmode-switch").checked && document.getElementById("qsndmode-switch").checked) ? true : undefined
+            }
+            $.ajax({
+                type: is_credentials_exists ? "PUT" : "POST",
+                url: "/user/save-credentials/",
+                headers: {"X-CSRFToken": '{{csrf_token}}'},
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    location.reload(true);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+{% endblock javascripts %}

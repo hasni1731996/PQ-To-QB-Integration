@@ -1,0 +1,141 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Customer Invoices {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/css/loader.css">
+    <link rel="stylesheet" href="/static/assets/css/dropdown.css">
+    <link href="/static/assets/css/simple-data-tables.css" rel="stylesheet" type="text/css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="card custInv">
+                        <div class="card-header">
+                            <h5>Customer Invoices</h5>
+                        </div>
+                        <div class="card-block px-0 py-3">
+                            <div class="card-block">
+                                <div class="row">
+                                    <label for="fromdate"
+                                           class="pr-0 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-info">From
+                                        Date</label>
+                                    <input type="date" name="fromDate"
+                                           class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" value="fromdate">
+
+                                    <label for="todate"
+                                           class="pr-0 ml-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-info">To
+                                        Date</label>
+                                    <input type="date" name="toDate"
+                                           class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" value="todate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-0 card-header">
+                            <h5 class="float-left mr-4">Customer Invoices Sync Log</h5>
+                            <div class="float-left">
+                                <select id="dropbtn">
+                                </select>
+                            </div>
+                            <input class="ml-2" type="text" id="desc" name="desc" placeholder="   Invoice Description"
+                                   style="height: 40px; width: 220px;">
+                            <div class="float-right search-box">
+                                <button class="btn btn-primary p-2" id="sync-custInv" type="button"
+                                        onclick="syncCustInv()">
+                                    Sync Customer Invoices
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-block table-border-style">
+                            <div class="table-responsive">
+                                <div id="loader"></div>
+                                <table class="table table-bordered table-striped table-condensed" id="tblList">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Sync Date</th>
+                                        <th>Sync Time</th>
+                                        <th>ProCore Project</th>
+                                        <th>ProCore Invoice No</th>
+                                        <th>ProCore Invoice Amount</th>
+                                        <th>QBO Customer ID</th>
+                                        <th>QBO Invoice Amount</th>
+                                        <th>QBO Customer ID</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% if cust_invoices %}
+                                        {% for custinvoice in cust_invoices %}
+                                            <tr>
+                                                <td>{{ custinvoice.sync_date_time|date:"d/m/Y" }}</td>
+                                                <td>{{ custinvoice.sync_date_time|time:"h:i:A" }}</td>
+                                                <td>{{ custinvoice.procore_project_name }}</td>
+                                                <td>{{ custinvoice.procore_owner_invoice_id }}</td>
+                                                <td>{{ custinvoice.procore_owner_invoice_amount }}</td>
+                                                <td>{{ custinvoice.qbo_customer_id }}</td>
+                                                <td>{{ custinvoice.qbo_amount }}</td>
+                                                <td>{{ custinvoice.qbo_customer_invoice_id }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script src="/static/assets/plugins/simple-data-tables/simple-data-tables.js" type="text/javascript"></script>
+    <script>
+        dropbtnCostCodes();
+        const dataTable = new simpleDatatables.DataTable("#tblList", {
+            fixedHeight: true,
+        })
+
+        function syncCustInv() {
+            document.getElementById("sync-custInv").className += ' disabled';
+            document.getElementById("loader").style.display = 'block';
+
+            var val = document.getElementById("dropbtn").value;
+            var des = document.getElementById("desc").value;
+
+            $.get("/app/sync-owner-invoices/?costcode_id=" + val + "&inv_desc=" + des, function (data) {
+                if (data.error) {
+                    console.log("here error occurred...", data.error)
+                }
+                if (data.response === true) {
+                    location.reload();
+                } else {
+                    location.reload();
+                }
+            })
+        }
+
+        function dropbtnCostCodes() {
+            $.get("/app/get-listings/?q=get_costcodes", function (data) {
+                for (var i = 0; i < data.results.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = data.results[i].name;
+                    option.value = data.results[i].qbo_cost_code_id;
+                    var select = document.getElementById("dropbtn");
+                    select.appendChild(option);
+                }
+            })
+        }
+    </script>
+{% endblock javascripts %}

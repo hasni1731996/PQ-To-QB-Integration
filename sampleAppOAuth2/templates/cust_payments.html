@@ -1,0 +1,143 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Customer Payments {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/css/loader.css">
+    <link href="/static/assets/css/simple-data-tables.css" rel="stylesheet" type="text/css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="card custPay">
+                        <div class="card-header">
+                            <h5>Customer Payments</h5>
+                        </div>
+                        <div class="card-block px-0 py-3">
+                            <div class="card-block">
+                                <div class="row">
+                                    <label for="fromdate"
+                                           class="pr-0 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-info">From
+                                        Date</label>
+                                    <input type="date" name="fromDate"
+                                           class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" value="fromdate">
+
+                                    <label for="todate"
+                                           class="pr-0 ml-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-info">To
+                                        Date</label>
+                                    <input type="date" name="toDate"
+                                           class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" value="todate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-0 card-header">
+                            <h5>Customer Payments Sync Log</h5>
+                            <div class="float-right search-box">
+                                <button class="btn btn-primary" id="sync-custPay" type="button" onclick="syncCustPay()">
+                                    Sync Customer Payments
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-block table-border-style">
+                            <div class="table-responsive">
+                                <div id="loader"></div>
+                                <p id="tblList"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script src="/static/assets/plugins/simple-data-tables/simple-data-tables.js" type="text/javascript"></script>
+    <script>
+        gridCustPay();
+        // const dataTable = new simpleDatatables.DataTable("#tblList", {
+        //     fixedHeight: true,
+        // })
+
+        function syncCustPay() {
+            document.getElementById("sync-custPay").className += ' disabled';
+            document.getElementById("loader").style.display = 'block';
+
+            $.get("/app/sync-owner-invoices/", function (data) {
+                if (data.error) {
+                    console.log("here error occurred...", data.error)
+                }
+                if (data.response === true) {
+                    location.reload();
+                }
+                else {
+                    location.reload();
+                }
+            })
+        }
+
+        function gridCustPay() {
+            $.get("/app/get-listings/?q=", function (data) {
+                // EXTRACT VALUE FOR HTML HEADER.
+                console.log(data); 
+                var col = [];
+                    for (var i = 0; i < data.results.length; i++) {
+                        for (var key in data.results[i]) {
+                            if (col.indexOf(key) === -1) {
+                                col.push(key);
+                            }
+                        }
+                    }
+
+                    // CREATE DYNAMIC TABLE.
+                    var table = document.createElement("table");
+                    table.id = "tbl";
+
+                    // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+                    var tr = table.insertRow(-1);                   // TABLE ROW.
+
+                    for (var i = 0; i < col.length; i++) {
+                        var th = document.createElement("th");      // TABLE HEADER.
+                        th.innerHTML = col[i];
+                        tr.appendChild(th);
+                    }
+
+                    // ADD JSON DATA TO THE TABLE AS ROWS.
+                    for (var i = 0; i < data.results.length; i++) {
+
+                        tr = table.insertRow(-1);
+
+                        for (var j = 0; j < col.length; j++) {
+                            var tabCell = tr.insertCell(-1);
+                            tabCell.innerHTML = data.results[i][col[j]];
+                            if(j==0)
+                            {
+                                tabCell.innerHTML = data.results[i].user.username;
+                            }
+                        }
+                    }
+
+                    // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                    var tblContainer = document.getElementById("tblList");
+                    tblContainer.innerHTML = "";
+                    tblContainer.appendChild(table);
+
+                    document.getElementById("loader").style.display = 'none';
+                    const dataTable = new simpleDatatables.DataTable("#tbl", {
+                        fixedHeight: true,
+                    })
+            })
+        }
+    </script>
+{% endblock javascripts %}

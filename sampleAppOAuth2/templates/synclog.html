@@ -1,0 +1,84 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Sync Log {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/css/search.css">
+    <link href="/static/assets/css/simple-data-tables.css" rel="stylesheet" type="text/css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card SyncLog">
+                            <div class="card-header">
+                                <h5>Sync Log</h5>
+                            </div>
+                            <div class="card-block px-0 py-3">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <label for="fromdate" class="pr-0 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-info">From Date</label>
+                                        <input type="date" name="fromDate" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" value="fromdate">
+
+                                        <label for="todate" class="pr-0 ml-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-info">To Date</label>
+                                        <input type="date" name="toDate" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" value="todate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="py-0 card-header">
+                                <h5>Sync Log Details</h5>
+                                <div class="float-right search-box">
+                                    <!-- <button class="btn-search"><i class="fas fa-search"></i></button>
+                                    <input type="text" class="input-search" placeholder="Type to Search..."> -->
+                                </div>
+                            </div>
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-condensed" id="tblList">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Sync Date</th>
+                                                <th>Sync Time</th>
+                                                <th>Sync Type</th>
+                                                <th>Error</th>
+                                                <th>Source ID</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">7/31/2021</th>
+                                                <td>9:52 PM</td>
+                                                <td>Customer</td>
+                                                <td>400 Bad Request</td>
+                                                <td>2021</td>
+                                                <td><input type="radio" id="true" name="true" value="1"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script src="/static/assets/plugins/simple-data-tables/simple-data-tables.js" type="text/javascript"></script>
+    <script>
+        const dataTable = new simpleDatatables.DataTable("#tblList", {
+            fixedHeight: true,
+        })
+    </script>
+{% endblock javascripts %}

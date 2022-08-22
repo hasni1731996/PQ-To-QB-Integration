@@ -1,0 +1,93 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Sync Setting {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/css/setting.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card SyncSettings">
+                            <div class="card-header">
+                                <h5>Sync Settings</h5>
+                            </div>
+                            <div class="card-block px-0 py-3">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <label for="link-customers" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Sync Projects/Customers</label>
+                                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row quickbook">
+                                        <label for="link-vendors" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Sync Vendors</label>
+                                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row quickbook">
+                                        <label for="link-cost" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Sync Cost Codes</label>
+                                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row quickbook">
+                                        <label for="link-custInv" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Sync Customer Invoices</label>
+                                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row quickbook">
+                                        <label for="link-subInv" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Sync Subcontractor Invoices</label>
+                                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row quickbook">
+                                        <label for="link-custPay" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Sync Customer Payments</label>
+                                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row quickbook">
+                                        <label for="link-subPay" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Sync Subcontractor Payments</label>
+                                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="row quickbook">
+                                        <label for="link-expenses" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 text-info">Sync Expenses</label>
+                                        <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

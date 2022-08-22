@@ -1,0 +1,167 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Setting {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/css/setting.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card Settings">
+                            <div class="card-header">
+                                <h5>Settings</h5>
+                            </div>
+                            <div class="card-block px-0 py-3">
+                                <div class="card-block">
+                                    <div class="card procore shadow p-3 m-3 bg-white rounded col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 float-left">
+                                        <img class="card-img-top" src="/static/assets/images/procore.png" alt="ProCore">
+                                        <div class="card-body pb-3">
+                                          <h4 class="font-weight-bold">Link Procore Account</h4>
+                                        </div>
+                                        <hr>
+                                        <a class="btn btn-danger"
+                                            href="/app/getprocoreapp/" id="procore-connect">Connect</a>
+                                        <div class="row">
+                                            <p class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 mt-2">{% if procore_username %}
+                                                {{ procore_username }}{% else %}Procore Account Name{% endif %}</p>
+                                            <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 mt-1 switch">
+                                                <input type="checkbox" checked id="procore-switch" onclick="checkPqSwitch()">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="card quickbook shadow p-3 m-3 bg-white rounded col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 float-left">
+                                        <img class="card-img-top mb-1" src="/static/assets/images/quickbooks.png" alt="QuickBooks">
+                                        <div class="card-body pb-3 px-3">
+                                          <h4 class="font-weight-bold">Link QuickBooks Account</h4>
+                                        </div>
+                                        <hr>
+                                        <a class="btn btn-danger"
+                                            href="/app/getAppNow/" id="quickbook-connect">Connect</a>
+                                        <div class="row">
+                                            <p class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 mt-2">{% if quickbook_username %}
+                                                {{ quickbook_username }}{% else %}QuickBook Name{% endif %}</p>
+                                            <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 mt-1 switch">
+                                                <input type="checkbox" checked id="quickbook-switch" onclick="checkQbSwitch()">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h5>Sync Settings</h5>
+                            </div>
+                            <div class="card-block px-0 py-3">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <label for="frequency"
+                                               class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-info">Sync
+                                            Frequency</label>
+                                        <select name="frequency" id="frequency"
+                                                class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                            <option value="daily">Daily</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                        </select>
+                                    </div>
+                                    <div class="row sync-count">
+                                        <label for="sync-time"
+                                               class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-info">Sync
+                                            Time</label>
+                                        <input type="time" id="synctime" name="synctime"
+                                               class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                        <label for="repeat"
+                                               class="pr-0 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-info">Repeat
+                                            After</label>
+                                        <input type="number" id="repeatafter" name="repeatafter"
+                                               class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                        <select name="repeattime" id="repeattime"
+                                                class="ml-2 col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                            <option value="seconds">Seconds</option>
+                                            <option value="minutes">Minutes</option>
+                                            <option value="hours">Hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script>
+        function checkUserAuthorization() {
+            $.get("/app/check-auth/", function (data) {
+                if (data.is_quickbook_token === false && data.is_procore_token === false) {
+                    document.getElementById("procore-connect").style.backgroundColor = "#f44236";
+                    document.getElementById("quickbook-connect").style.backgroundColor = "#f44236";
+                    document.getElementById("procore-switch").checked = false;
+                    document.getElementById("quickbook-switch").checked = false;
+                } else if (data.is_procore_token === false) {
+                    document.getElementById("quickbook-connect").style.backgroundColor = "#1de9b6";
+                    document.getElementById("quickbook-connect").style.borderColor = "#1de9b6";
+                    document.getElementById("quickbook-connect").className += ' disabled';
+                    document.getElementById("quickbook-connect").innerHTML = "Connected";
+                    document.getElementById("procore-switch").checked = false;
+                } else if (data.is_quickbook_token === false) {
+                    document.getElementById("procore-connect").style.backgroundColor = "#1de9b6";
+                    document.getElementById("procore-connect").style.borderColor = "#1de9b6";
+                    document.getElementById("procore-connect").className += ' disabled';
+                    document.getElementById("procore-connect").innerHTML = "Connected";
+                    document.getElementById("quickbook-switch").checked = false;
+                }
+
+                if (data.error) {
+                    document.getElementById("quickbook-switch").style.backgroundColor = "#f44236";
+                    document.getElementById("procore-switch").style.backgroundColor = "#f44236";
+                    document.getElementById("procore-switch").checked = false;
+                    document.getElementById("quickbook-switch").checked = false;
+                }
+
+                // when anyone of the tokens are available
+                if (data.response === true) {
+                    document.getElementById("procore-connect").innerHTML = "Connected";
+                    document.getElementById("procore-connect").className += ' disabled';
+                    document.getElementById("procore-connect").style.backgroundColor = "#1de9b6";
+                    document.getElementById("procore-connect").style.borderColor = "#1de9b6";
+                    document.getElementById("quickbook-connect").innerHTML = "Connected";
+                    document.getElementById("quickbook-connect").className += ' disabled';
+                    document.getElementById("quickbook-connect").style.backgroundColor = "#1de9b6";
+                    document.getElementById("quickbook-connect").style.borderColor = "#1de9b6";
+                }
+            })
+        }
+
+        function checkPqSwitch() {
+            var pqChk = document.getElementById("procore-switch").checked;
+            if(pqChk == false) {
+                $.get("/app/revoke-procore-user/", function (data) {
+                    document.getElementById("procore-switch").checked;
+                    
+                })
+            }
+        }
+
+        function checkQbSwitch() {
+            var qbChk = document.getElementById("quickbook-switch").value;
+        }
+
+        checkUserAuthorization()
+    </script>
+{% endblock javascripts %}
